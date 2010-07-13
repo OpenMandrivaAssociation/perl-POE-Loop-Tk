@@ -1,5 +1,5 @@
 %define upstream_name    POE-Loop-Tk
-%define upstream_version 1.302
+%define upstream_version 1.304
 
 Name:       perl-%{upstream_name}
 Version:    %perl_convert_version %{upstream_version}
@@ -14,6 +14,7 @@ BuildRequires: perl(POE)
 BuildRequires: perl(POE::Test::Loops)
 BuildRequires: perl(Tk)
 BuildRequires: x11-server-xvfb
+
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}
 
@@ -32,11 +33,15 @@ appropriate bridge code based on the runtime enviroment.
 %setup -q -n %{upstream_name}-%{upstream_version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor < /dev/null
+yes | %{__perl} Makefile.PL INSTALLDIRS=vendor
 %{make}
 
 %check
-make test
+# makefile.pl ignores input if not inside a tty :-(
+rm run_network_tests
+# this test requires interactivity
+rm t/poe_loop_tk/wheel_run.t
+xvfb-run %make test
 
 %install
 rm -rf %buildroot
