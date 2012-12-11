@@ -1,22 +1,22 @@
 %define upstream_name    POE-Loop-Tk
 %define upstream_version 1.304
 
-Name:       perl-%{upstream_name}
-Version:    %perl_convert_version %{upstream_version}
-Release:    %mkrel 2
-Summary:    A POE/Tk bridge for ActiveState's Tk
-License:    GPL+ or Artistic
-Group:      Development/Perl
-Url:        http://search.cpan.org/dist/%{upstream_name}
-Source0:    http://www.cpan.org/modules/by-module/POE/%{upstream_name}-%{upstream_version}.tar.gz
+Name:		perl-%{upstream_name}
+Version:	%perl_convert_version %{upstream_version}
+Release:	2
+Summary:	A POE/Tk bridge for ActiveState's Tk
+License:	GPL+ or Artistic
+Group:		Development/Perl
+Url:		http://search.cpan.org/dist/%{upstream_name}
+Source0:	http://www.cpan.org/modules/by-module/POE/%{upstream_name}-%{upstream_version}.tar.gz
 
-BuildRequires: perl(POE)
-BuildRequires: perl(POE::Test::Loops)
-BuildRequires: perl(Tk)
-BuildRequires: x11-server-xvfb
+BuildRequires:	perl-devel
+BuildRequires:	perl(POE)
+BuildRequires:	perl(POE::Test::Loops)
+BuildRequires:	perl(Tk)
+BuildRequires:	x11-server-xvfb
 
-BuildArch: noarch
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}
+BuildArch:	noarch
 
 %description
 POE::Loop::Tk implements the interface documented in the POE::Loop manpage.
@@ -33,8 +33,8 @@ appropriate bridge code based on the runtime enviroment.
 %setup -q -n %{upstream_name}-%{upstream_version}
 
 %build
-yes | %{__perl} Makefile.PL INSTALLDIRS=vendor
-%{make}
+yes | perl Makefile.PL INSTALLDIRS=vendor
+%make
 
 %check
 # makefile.pl ignores input if not inside a tty :-(
@@ -44,16 +44,22 @@ rm t/poe_loop_tk/wheel_run.t
 xvfb-run %make test
 
 %install
-rm -rf %buildroot
 %makeinstall_std
 
-%clean
-rm -rf %buildroot
-
 %files
-%defattr(-,root,root)
 %doc CHANGES README
 %{_mandir}/man3/*
-%perl_vendorlib/*
+%{perl_vendorlib}/*
+
+%changelog
+* Tue Jul 13 2010 Jérôme Quelin <jquelin@mandriva.org> 1.304.0-1mdv2011.0
++ Revision: 552564
+- update to 1.304
+
+* Mon Aug 31 2009 Guillaume Rousse <guillomovitch@mandriva.org> 1.302.0-1mdv2010.0
++ Revision: 422751
+- import perl-POE-Loop-Tk
 
 
+* Mon Aug 31 2009 cpan2dist 1.302-1mdv
+- initial mdv release, generated with cpan2dist
