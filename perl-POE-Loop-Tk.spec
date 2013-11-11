@@ -1,14 +1,14 @@
 %define upstream_name    POE-Loop-Tk
-%define upstream_version 1.304
+%define upstream_version 1.305
 
 Name:		perl-%{upstream_name}
 Version:	%perl_convert_version %{upstream_version}
-Release:	2
+Release:	1
 Summary:	A POE/Tk bridge for ActiveState's Tk
 License:	GPL+ or Artistic
 Group:		Development/Perl
 Url:		http://search.cpan.org/dist/%{upstream_name}
-Source0:	http://www.cpan.org/modules/by-module/POE/%{upstream_name}-%{upstream_version}.tar.gz
+Source0:	http://www.cpan.org/modules/by-module/POE/POE-Loop-Tk-%{upstream_version}.tar.gz
 
 BuildRequires:	perl-devel
 BuildRequires:	perl(POE)
@@ -63,3 +63,4 @@ xvfb-run %make test
 
 * Mon Aug 31 2009 cpan2dist 1.302-1mdv
 - initial mdv release, generated with cpan2dist
+
