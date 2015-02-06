@@ -3,7 +3,7 @@
 
 Name:		perl-%{upstream_name}
 Version:	%perl_convert_version %{upstream_version}
-Release:	2
+Release:	3
 Summary:	A POE/Tk bridge for ActiveState's Tk
 License:	GPL+ or Artistic
 Group:		Development/Perl
